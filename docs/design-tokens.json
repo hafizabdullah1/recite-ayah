@@ -1,0 +1,53 @@
+{
+  "primitive": {
+    "color": {
+      "cream": { "$type": "color", "$value": "#F9F6F0" },
+      "white": { "$type": "color", "$value": "#FFFFFF" },
+      "forest": {
+        "500": { "$type": "color", "$value": "#2C4C3B" },
+        "600": { "$type": "color", "$value": "#1B3625" },
+        "700": { "$type": "color", "$value": "#0D2214" }
+      },
+      "rust": {
+        "500": { "$type": "color", "$value": "#A65D3C" },
+        "600": { "$type": "color", "$value": "#8B4223" },
+        "700": { "$type": "color", "$value": "#6E3015" }
+      },
+      "charcoal": {
+        "800": { "$type": "color", "$value": "#4A4A4A" },
+        "900": { "$type": "color", "$value": "#2C2C2C" }
+      },
+      "gray": {
+        "400": { "$type": "color", "$value": "#9CA3AF" },
+        "500": { "$type": "color", "$value": "#6B6B6B" }
+      }
+    },
+    "fontFamily": {
+      "serif": { "$type": "fontFamily", "$value": "'Lora', serif" },
+      "sans": { "$type": "fontFamily", "$value": "'Outfit', sans-serif" }
+    }
+  },
+  "semantic": {
+    "color": {
+      "background": {
+        "default": { "$type": "color", "$value": "{primitive.color.cream}" },
+        "surface": { "$type": "color", "$value": "{primitive.color.white}" }
+      },
+      "text": {
+        "primary": { "$type": "color", "$value": "{primitive.color.charcoal.900}" },
+        "secondary": { "$type": "color", "$value": "{primitive.color.gray.500}" },
+        "inverse": { "$type": "color", "$value": "{primitive.color.white}" }
+      },
+      "action": {
+        "primary": {
+          "default": { "$type": "color", "$value": "{primitive.color.forest.600}" },
+          "hover": { "$type": "color", "$value": "{primitive.color.forest.700}" }
+        },
+        "secondary": {
+          "default": { "$type": "color", "$value": "{primitive.color.rust.600}" },
+          "hover": { "$type": "color", "$value": "{primitive.color.rust.700}" }
+        }
+      }
+    }
+  }
+}
