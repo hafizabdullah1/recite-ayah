@@ -16,6 +16,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://reciteayah.vercel.app"),
   title: "Recite Ayah | Learn Quran Online with Certified Tutors",
   description: "Join thousands of students learning Quran online. Book a free 30-minute trial class with our certified male and female Islamic scholars today. 24/7 flexible scheduling available.",
   openGraph: {
@@ -24,11 +25,20 @@ export const metadata: Metadata = {
     url: "https://www.reciteayah.com",
     siteName: "Recite Ayah",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Recite Ayah - Learn Quran Online",
+      }
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Recite Ayah | Learn Quran Online",
     description: "Start your Quran learning journey with certified scholars. Book your free trial today.",
+    images: ["/twitter-image.jpg"],
   },
 };
 
