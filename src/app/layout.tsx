@@ -16,8 +16,20 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Quran Expert | Master the Quran Online",
-  description: "Learn Tajweed, Hifz, and Arabic in a supportive, flexible online environment designed for your spiritual journey.",
+  title: "Recite Ayah | Learn Quran Online with Certified Tutors",
+  description: "Join thousands of students learning Quran online. Book a free 30-minute trial class with our certified male and female Islamic scholars today. 24/7 flexible scheduling available.",
+  openGraph: {
+    title: "Recite Ayah | Learn Quran Online",
+    description: "Start your Quran learning journey with certified scholars. Book your free trial today.",
+    url: "https://www.reciteayah.com",
+    siteName: "Recite Ayah",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Recite Ayah | Learn Quran Online",
+    description: "Start your Quran learning journey with certified scholars. Book your free trial today.",
+  },
 };
 
 export default function RootLayout({

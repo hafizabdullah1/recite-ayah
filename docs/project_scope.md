@@ -1,7 +1,7 @@
-# Project Scope: Quran Expert Website
+# Project Scope: Recite Ayah Website
 
 ## 1. Project Overview
-The objective is to build a modern, lead-generation, and educational marketing platform for an online Quran academy (tentatively named "Quran Expert"). The primary goal is to facilitate course discovery, build trust through social proof, and capture student leads for one-on-one live classes via a frictionless "Free Trial" booking funnel.
+The objective is to build a modern, lead-generation, and educational marketing platform for an online Quran academy (tentatively named "Recite Ayah"). The primary goal is to facilitate course discovery, build trust through social proof, and capture student leads for one-on-one live classes via a frictionless "Free Trial" booking funnel.
 
 ### 1.1 Design Philosophy & Aesthetics
 Based on the provided reference, the website must diverge from traditional, cluttered designs and adopt a **minimalistic, premium, and soothing aesthetic**.

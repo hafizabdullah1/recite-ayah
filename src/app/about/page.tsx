@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BookOpen, Globe, Heart, ShieldCheck } from "lucide-react";
 
 export const metadata = {
-  title: "About Us | Quran Expert",
+  title: "About Us | Recite Ayah",
   description: "Learn about our mission to spread the light of the Quran globally with expert, certified tutors.",
 };
 
@@ -18,7 +18,7 @@ export default function AboutPage() {
               Our Mission
             </h1>
             <p className="text-xl text-foreground/80 leading-relaxed">
-              At Quran Expert, our goal is to make high-quality, authentic Islamic education accessible to everyone, everywhere. We connect eager students with certified scholars to learn the Book of Allah.
+              At Recite Ayah, our goal is to make high-quality, authentic Islamic education accessible to everyone, everywhere. We connect eager students with certified scholars to learn the Book of Allah.
             </p>
           </div>
 
@@ -29,7 +29,7 @@ export default function AboutPage() {
             <div className="space-y-6">
               <h2 className="font-serif text-3xl font-medium text-foreground">Why We Started</h2>
               <p className="text-lg text-foreground/80 leading-relaxed">
-                Many Muslims living in the West or busy with modern life struggle to find qualified, engaging, and flexible Quran tutors. We founded Quran Expert to bridge this gap, ensuring that time zones, locations, and busy schedules never stand in the way of your spiritual growth.
+                Many Muslims living in the West or busy with modern life struggle to find qualified, engaging, and flexible Quran tutors. We founded Recite Ayah to bridge this gap, ensuring that time zones, locations, and busy schedules never stand in the way of your spiritual growth.
               </p>
               <Button asChild size="lg" className="rounded-full px-8 mt-4">
                 <Link href="/contact">Join Our Academy</Link>

@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Terms and Conditions | Quran Expert",
-  description: "Terms and conditions of service for Quran Expert.",
+  title: "Terms and Conditions | Recite Ayah",
+  description: "Terms and conditions of service for Recite Ayah.",
 };
 
 export default function TermsPage() {
@@ -17,7 +17,7 @@ export default function TermsPage() {
             <p>Last updated: {new Date().toLocaleDateString()}</p>
             
             <h2>1. Introduction</h2>
-            <p>Welcome to Quran Expert. By accessing our website and utilizing our services, you agree to comply with and be bound by the following terms and conditions.</p>
+            <p>Welcome to Recite Ayah. By accessing our website and utilizing our services, you agree to comply with and be bound by the following terms and conditions.</p>
 
             <h2>2. Enrollment and Classes</h2>
             <p>Students must maintain decorum and respect during online classes. Scheduling is done based on mutual agreement. Any cancellations must be communicated at least 24 hours in advance to be eligible for a make-up class.</p>

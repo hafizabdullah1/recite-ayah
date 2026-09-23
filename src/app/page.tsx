@@ -94,7 +94,7 @@ export default function Home() {
         <section className="bg-white py-24">
           <div className="container mx-auto px-6 lg:px-12">
             <div className="mb-16 text-center">
-              <h2 className="font-serif text-4xl font-medium text-foreground md:text-5xl">Why Choose Quran Expert?</h2>
+              <h2 className="font-serif text-4xl font-medium text-foreground md:text-5xl">Why Choose Recite Ayah?</h2>
               <p className="mt-4 text-lg text-foreground/70">Experience the best online Islamic education with our core benefits.</p>
             </div>
             
@@ -211,16 +211,11 @@ export default function Home() {
               <div className="relative z-10 max-w-3xl mx-auto">
                 <h2 className="font-serif text-4xl font-medium text-foreground md:text-5xl mb-6">Ready to Connect with the Quran?</h2>
                 <p className="text-lg text-foreground/80 mb-10">Join thousands of students worldwide. Your first class is completely free, with no credit card required.</p>
-                <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email address" 
-                    className="flex-1 h-14 rounded-full px-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  />
-                  <Button asChild size="lg" className="rounded-full h-14 px-8 text-base shrink-0 shadow-lg">
+                <div className="flex justify-center max-w-xl mx-auto">
+                  <Button asChild size="lg" className="rounded-full h-14 px-10 text-base shadow-lg">
                     <Link href="/contact">Book Free Trial</Link>
                   </Button>
-                </form>
+                </div>
                 <div className="mt-6 flex items-center justify-center gap-6 text-sm text-foreground/60">
                   <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> No obligation</span>
                   <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> 30-min evaluation</span>
@@ -229,9 +224,99 @@ export default function Home() {
             </div>
           </div>
         </section>
+        
+        {/* FAQ Section (AEO Optimization) */}
+        <section className="py-16 md:py-24 bg-white">
+          <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
+            <div className="text-center mb-16">
+              <h2 className="font-serif text-3xl font-medium text-foreground md:text-4xl">Frequently Asked Questions</h2>
+              <p className="mt-4 text-foreground/70">Everything you need to know about learning with Recite Ayah.</p>
+            </div>
+            <div className="space-y-6">
+              {[
+                {
+                  q: "Who are the tutors at Recite Ayah?",
+                  a: "Our tutors are certified Islamic scholars who hold Ijazah from reputable institutions like Al-Azhar University. We have both male and female tutors who are fluent in English and experienced in teaching students globally."
+                },
+                {
+                  q: "What are the fees for online Quran classes?",
+                  a: "Our pricing is highly affordable, starting at just $50 per month for 2 days a week. We offer flexible plans up to 5 days a week. You can find detailed pricing on our Pricing page."
+                },
+                {
+                  q: "What is the class schedule?",
+                  a: "We offer 24/7 flexible scheduling. You can choose class timings that perfectly fit your routine and local time zone (EST, GMT, etc.)."
+                },
+                {
+                  q: "Are the classes suitable for young kids?",
+                  a: "Absolutely! We have specialized female tutors who use engaging, patient, and interactive methods designed specifically for children learning the Noorani Qaida and basic Quran reading."
+                },
+                {
+                  q: "How does the free trial work?",
+                  a: "Simply fill out our contact form to book a free 30-minute evaluation class. There is no credit card required and zero obligation to continue if you are not completely satisfied."
+                }
+              ].map((faq, idx) => (
+                <div key={idx} className="bg-background p-6 md:p-8 rounded-3xl shadow-sm border border-primary/5">
+                  <h3 className="font-serif font-medium text-xl text-foreground mb-3">{faq.q}</h3>
+                  <p className="text-foreground/70 leading-relaxed">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
-
+      {/* JSON-LD FAQ Schema for Answer Engine Optimization */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Who are the tutors at Recite Ayah?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our tutors are certified Islamic scholars who hold Ijazah from reputable institutions like Al-Azhar University. We have both male and female tutors who are fluent in English and experienced in teaching students globally."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What are the fees for online Quran classes?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our pricing is highly affordable, starting at just $50 per month for 2 days a week. We offer flexible plans up to 5 days a week. You can find detailed pricing on our Pricing page."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the class schedule?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We offer 24/7 flexible scheduling. You can choose class timings that perfectly fit your routine and local time zone (EST, GMT, etc.)."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are the classes suitable for young kids?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely! We have specialized female tutors who use engaging, patient, and interactive methods designed specifically for children learning the Noorani Qaida and basic Quran reading."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does the free trial work?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Simply fill out our contact form to book a free 30-minute evaluation class. There is no credit card required and zero obligation to continue if you are not completely satisfied."
+                }
+              }
+            ]
+          })
+        }}
+      />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { CheckCircle2, Star, Clock, Globe } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
 
 export const metadata = {
-  title: "Online Quran Classes in USA | Quran Expert",
+  title: "Online Quran Classes in USA | Recite Ayah",
   description: "Join the best online Quran academy in the USA. Certified tutors, flexible EST/CST/PST scheduling, and tailored programs for kids and adults.",
 };
 

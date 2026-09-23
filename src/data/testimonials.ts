@@ -20,7 +20,7 @@ export const testimonials: Testimonial[] = [
     id: "2",
     name: "Omar K.",
     role: "Adult Student, UK",
-    content: "I always struggled with reading the Quran fluently. My tutor at Quran Expert was incredibly patient and helped me correct my Makharij. Highly recommended for adults!",
+    content: "I always struggled with reading the Quran fluently. My tutor at Recite Ayah was incredibly patient and helped me correct my Makharij. Highly recommended for adults!",
     rating: 5,
     initials: "OK"
   },

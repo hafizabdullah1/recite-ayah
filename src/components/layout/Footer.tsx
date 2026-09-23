@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-2 text-white">
           <BookOpen className="h-6 w-6" />
-          <span className="font-serif text-2xl font-bold tracking-tight">Quran Expert</span>
+          <span className="font-serif text-2xl font-bold tracking-tight">Recite Ayah</span>
         </div>
         
         <div className="flex gap-6 text-sm text-white/60">
@@ -15,7 +15,7 @@ export function Footer() {
           <Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link>
         </div>
 
-        <p className="text-white/60 text-sm">© {new Date().getFullYear()} Quran Expert. All rights reserved.</p>
+        <p className="text-white/60 text-sm">© {new Date().getFullYear()} Recite Ayah. All rights reserved.</p>
       </div>
     </footer>
   );

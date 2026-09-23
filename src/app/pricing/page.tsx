@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { CheckCircle2 } from "lucide-react";
 
 export const metadata = {
-  title: "Pricing & Plans | Quran Expert",
+  title: "Pricing & Plans | Recite Ayah",
   description: "Affordable and flexible online Quran classes. Choose a plan that fits your schedule.",
 };
 

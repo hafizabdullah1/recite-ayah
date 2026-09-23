@@ -11,7 +11,7 @@ export function Navbar() {
             <BookOpen className="h-6 w-6" />
           </div>
           <Link href="/" className="font-serif text-2xl font-bold tracking-tight text-foreground">
-            Quran Expert
+            Recite Ayah
           </Link>
         </div>
 

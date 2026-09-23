@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Privacy Policy | Quran Expert",
-  description: "Privacy policy for Quran Expert.",
+  title: "Privacy Policy | Recite Ayah",
+  description: "Privacy policy for Recite Ayah.",
 };
 
 export default function PrivacyPage() {
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
             <p>Last updated: {new Date().toLocaleDateString()}</p>
             
             <h2>1. Introduction</h2>
-            <p>At Quran Expert, we respect your privacy and are committed to protecting your personal data. This privacy policy informs you about how we look after your personal data when you visit our website and tells you about your privacy rights.</p>
+            <p>At Recite Ayah, we respect your privacy and are committed to protecting your personal data. This privacy policy informs you about how we look after your personal data when you visit our website and tells you about your privacy rights.</p>
 
             <h2>2. The Data We Collect</h2>
             <p>We may collect, use, store and transfer different kinds of personal data about you, including:</p>
@@ -34,7 +34,7 @@ export default function PrivacyPage() {
             <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.</p>
 
             <h2>5. Contact Us</h2>
-            <p>If you have any questions about this privacy policy or our privacy practices, please contact us at support@quranexpert.com.</p>
+            <p>If you have any questions about this privacy policy or our privacy practices, please contact us at support@reciteayah.com.</p>
           </div>
 
         </div>
