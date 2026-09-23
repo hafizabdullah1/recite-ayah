@@ -41,10 +41,8 @@ Based on the provided reference, the website must diverge from traditional, clut
 *   **Validation**: Client-side and server-side validation to ensure accurate data (especially phone numbers).
 *   **Automated Routing**: Upon submission, trigger a confirmation email to the user and a notification to the admin dashboard/CRM.
 
-### 3.3 Content Management System (CMS)
-*   **Dynamic Courses**: Ability for admins to easily add/edit courses, descriptions, and audiences.
-*   **Pricing Management**: Update fees and plans without touching code.
-*   **Testimonial Manager**: Add and rotate student/parent reviews to establish social proof.
+### 3.3 Static Data Architecture
+*   **Static Courses**: Courses, pricing, and testimonials will be hardcoded using static data arrays within the Next.js application for maximum speed and simplicity.
 
 ---
 
@@ -56,8 +54,6 @@ To achieve top-tier performance, SEO, and the premium feel requested, the follow
     *   **Next.js (React)**: For Server-Side Rendering (SSR) and Static Site Generation (SSG), ensuring lightning-fast load times and excellent SEO.
     *   **Styling**: Tailwind CSS, strictly adhering to the bespoke design system.
     *   **Animations**: Framer Motion for smooth, premium micro-interactions.
-*   **Backend & CMS**:
-    *   **Sanity.io**: A Headless CMS to allow non-technical staff to update courses, pricing, and testimonials easily.
 *   **Integrations**:
     *   **Forms & Lead Capture**: React Hook Form + Zod (Validation).
     *   **Email Automation**: Resend for transactional emails (Trial confirmations).
@@ -81,11 +77,10 @@ The project will be executed in sequential phases to ensure quality and alignmen
 *   Build reusable UI components (Buttons, Cards, Forms, Testimonial sliders).
 *   Implement responsive design (Mobile, Tablet, Desktop) and micro-animations.
 
-### Phase 3: CMS Integration & Dynamic Content (Weeks 5-6)
-*   Setup the Headless CMS (Sanity/Strapi).
-*   Model the data schemas for Courses, Pricing Plans, and Testimonials.
-*   Connect the Next.js frontend to the CMS to fetch dynamic data.
-*   Develop the dynamic Course detail pages and Location pages.
+### Phase 3: Static Content & US-Targeted Pages (Weeks 5-6)
+*   Model static data structures (`data/courses.ts`, `data/testimonials.ts`) based on the reference website content.
+*   Develop the static Course catalog and individual Course detail pages.
+*   Develop dedicated US-targeted landing page(s) (e.g., `/usa/online-quran-classes`) with localized copy, US phone numbers, and timezones to dominate local SEO.
 
 ### Phase 4: Forms, Integrations & Backend Logic (Week 7)
 *   Build and wire up the "Free Trial" and "Contact" forms.
