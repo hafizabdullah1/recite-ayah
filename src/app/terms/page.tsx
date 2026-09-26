@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Terms and Conditions | Recite Ayah",
-  description: "Terms and conditions of service for Recite Ayah.",
-};
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata("Terms and Conditions", "Read the enrollment, scheduling, payment, and refund terms for Recite Ayah online Quran classes.", "/terms");
 
 export default function TermsPage() {
   return (

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { site, absoluteUrl } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
 import { Aoboshi_One, Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
@@ -16,30 +18,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://reciteayah.vercel.app"),
-  title: "Recite Ayah | Learn Quran Online with Certified Tutors",
-  description: "Join thousands of students learning Quran online. Book a free 30-minute trial class with our certified male and female Islamic scholars today. 24/7 flexible scheduling available.",
-  openGraph: {
-    title: "Recite Ayah | Learn Quran Online",
-    description: "Start your Quran learning journey with certified scholars. Book your free trial today.",
-    url: "https://www.reciteayah.com",
-    siteName: "Recite Ayah",
-    type: "website",
-    images: [
-      {
-        url: "/opengraph-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Recite Ayah - Learn Quran Online",
-      }
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Recite Ayah | Learn Quran Online",
-    description: "Start your Quran learning journey with certified scholars. Book your free trial today.",
-    images: ["/twitter-image.jpg"],
-  },
+  metadataBase: new URL(site.url), title: site.name, description: site.description,
 };
 
 export default function RootLayout({
@@ -53,6 +32,7 @@ export default function RootLayout({
       className={`${aoboshi.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans selection:bg-primary/20">
+        <JsonLd data={{ "@context": "https://schema.org", "@type": "Organization", "@id": absoluteUrl("/#organization"), name: site.name, url: site.url }} />
         <Navbar />
         {children}
         <Footer />

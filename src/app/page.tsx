@@ -1,3 +1,7 @@
+import { startingPrice } from "@/data/pricing";
+import { JsonLd } from "@/components/JsonLd";
+import { testimonials } from "@/data/testimonials";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
@@ -13,6 +17,31 @@ import {
 } from "lucide-react";
 import { courses } from "@/data/courses";
 
+const faqs = [
+  {
+    q: "Who are the tutors at Recite Ayah?",
+    a: "We offer one-to-one lessons with male and female tutors. Tell us your learning goals and preferred teaching language when requesting a trial so we can discuss a suitable teacher."
+  },
+  {
+    q: "What are the fees for online Quran classes?",
+    a: `Plans start at ${startingPrice} USD per month for 2 days a week. Compare our plans for 2, 3, or 5 days a week on the Pricing page.`
+  },
+  {
+    q: "What is the class schedule?",
+    a: "Share your time zone and preferred times when requesting a trial. Our team will confirm a suitable class time with you before the session."
+  },
+  {
+    q: "Are the classes suitable for young kids?",
+    a: "Absolutely! We have specialized female tutors who use engaging, patient, and interactive methods designed specifically for children learning the Noorani Qaida and basic Quran reading."
+  },
+  {
+    q: "How does the free trial work?",
+    a: "Simply fill out our contact form to book a free 30-minute evaluation class. There is no credit card required and zero obligation to continue if you are not completely satisfied."
+  }
+];
+
+export const metadata = pageMetadata("Online Quran Classes for Kids & Adults", "One-to-one online Quran lessons in reading, Tajweed, Hifz, and Islamic studies. Explore our courses and request a free 30-minute trial.", "/");
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background selection:bg-primary/20">
@@ -24,7 +53,7 @@ export default function Home() {
             {/* Left Content */}
             <div className="flex max-w-2xl flex-col items-start gap-8">
               <h1 className="font-serif text-5xl font-medium leading-[1.1] tracking-tight text-foreground md:text-6xl lg:text-[4.5rem]">
-                Master the Art of Reciting the Quran with Guidance
+                Online Quran Classes for Kids and Adults
               </h1>
               
               <p className="text-lg leading-relaxed text-foreground/80 md:text-xl">
@@ -74,9 +103,11 @@ export default function Home() {
             {/* Right Image */}
             <div className="relative mx-auto w-full max-w-md lg:max-w-none">
               <div className="aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gray-100 shadow-2xl relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/images/hero-qari.jpg"
+                  fill
+                  sizes="(max-width: 479px) calc(100vw - 48px), (max-width: 1023px) 448px, 50vw"
+                  loading="eager"
                   alt="Young Quran teacher giving an online lesson"
                   className="h-full w-full object-cover"
                 />
@@ -100,7 +131,7 @@ export default function Home() {
             
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {[
-                { icon: ShieldCheck, title: "Certified Scholars", desc: "Learn from highly qualified tutors from Egypt and top Islamic universities." },
+                { icon: ShieldCheck, title: "Certified Scholars", desc: "Discuss your learning goals and tutor preferences during your free trial." },
                 { icon: Users, title: "Female Tutors Available", desc: "We provide dedicated and qualified female teachers for sisters and kids." },
                 { icon: Video, title: "Interactive 1-on-1 Classes", desc: "Live, private video sessions ensuring complete focus on your progress." },
               ].map((benefit, idx) => (
@@ -116,6 +147,11 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="container mx-auto px-6 py-12 lg:px-12">
+          <h2 className="font-serif text-3xl mb-4">Learning from the United States?</h2>
+          <p className="text-foreground/80 mb-4">Explore USD plans and share a class time that fits your family across Eastern, Central, Mountain, or Pacific time.</p>
+          <Link href="/usa/online-quran-classes" className="font-medium text-primary underline underline-offset-4">Explore online Quran classes in the USA</Link>
+        </section>
         {/* Course Highlights */}
         <section className="py-24">
           <div className="container mx-auto px-6 lg:px-12">
@@ -179,8 +215,8 @@ export default function Home() {
             <h2 className="font-serif text-4xl font-medium text-foreground md:text-5xl mb-16">What Parents & Students Say</h2>
             
             <div className="grid gap-8 md:grid-cols-3 text-left">
-              {[1, 2, 3].map((_, idx) => (
-                <div key={idx} className="rounded-3xl bg-background p-8 border border-primary/5">
+              {testimonials.map((testimonial) => (
+                <div key={testimonial.id} className="rounded-3xl bg-background p-8 border border-primary/5">
                   <div className="flex text-yellow-400 mb-6">
                     <Star className="h-5 w-5 fill-current" />
                     <Star className="h-5 w-5 fill-current" />
@@ -189,13 +225,13 @@ export default function Home() {
                     <Star className="h-5 w-5 fill-current" />
                   </div>
                   <p className="text-foreground/80 leading-relaxed mb-8 italic">
-                    &quot;Alhamdulillah, my kids love learning from their tutor. The teaching method is very engaging and we have seen massive improvements in their Tajweed within a month.&quot;
+                    &quot;{testimonial.content}&quot;
                   </p>
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center font-serif text-primary font-bold">FA</div>
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center font-serif text-primary font-bold">{testimonial.initials}</div>
                     <div>
-                      <h4 className="font-medium text-foreground">Fatima A.</h4>
-                      <p className="text-sm text-foreground/60">Parent, USA</p>
+                      <h4 className="font-medium text-foreground">{testimonial.name}</h4>
+                      <p className="text-sm text-foreground/60">{testimonial.role}</p>
                     </div>
                   </div>
                 </div>
@@ -210,7 +246,7 @@ export default function Home() {
             <div className="rounded-[3rem] bg-secondary/10 px-6 py-16 md:py-20 text-center border border-secondary/20 relative overflow-hidden">
               <div className="relative z-10 max-w-3xl mx-auto">
                 <h2 className="font-serif text-4xl font-medium text-foreground md:text-5xl mb-6">Ready to Connect with the Quran?</h2>
-                <p className="text-lg text-foreground/80 mb-10">Join thousands of students worldwide. Your first class is completely free, with no credit card required.</p>
+                <p className="text-lg text-foreground/80 mb-10">Learn at your own pace with one-to-one guidance. Your first class is completely free, with no credit card required.</p>
                 <div className="flex justify-center max-w-xl mx-auto">
                   <Button asChild size="lg" className="rounded-full h-14 px-10 text-base shadow-lg">
                     <Link href="/contact">Book Free Trial</Link>
@@ -225,7 +261,7 @@ export default function Home() {
           </div>
         </section>
         
-        {/* FAQ Section (AEO Optimization) */}
+        {/* Frequently asked questions */}
         <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
             <div className="text-center mb-16">
@@ -233,28 +269,7 @@ export default function Home() {
               <p className="mt-4 text-foreground/70">Everything you need to know about learning with Recite Ayah.</p>
             </div>
             <div className="space-y-6">
-              {[
-                {
-                  q: "Who are the tutors at Recite Ayah?",
-                  a: "Our tutors are certified Islamic scholars who hold Ijazah from reputable institutions like Al-Azhar University. We have both male and female tutors who are fluent in English and experienced in teaching students globally."
-                },
-                {
-                  q: "What are the fees for online Quran classes?",
-                  a: "Our pricing is highly affordable, starting at just $50 per month for 2 days a week. We offer flexible plans up to 5 days a week. You can find detailed pricing on our Pricing page."
-                },
-                {
-                  q: "What is the class schedule?",
-                  a: "We offer 24/7 flexible scheduling. You can choose class timings that perfectly fit your routine and local time zone (EST, GMT, etc.)."
-                },
-                {
-                  q: "Are the classes suitable for young kids?",
-                  a: "Absolutely! We have specialized female tutors who use engaging, patient, and interactive methods designed specifically for children learning the Noorani Qaida and basic Quran reading."
-                },
-                {
-                  q: "How does the free trial work?",
-                  a: "Simply fill out our contact form to book a free 30-minute evaluation class. There is no credit card required and zero obligation to continue if you are not completely satisfied."
-                }
-              ].map((faq, idx) => (
+              {faqs.map((faq, idx) => (
                 <div key={idx} className="bg-background p-6 md:p-8 rounded-3xl shadow-sm border border-primary/5">
                   <h3 className="font-serif font-medium text-xl text-foreground mb-3">{faq.q}</h3>
                   <p className="text-foreground/70 leading-relaxed">{faq.a}</p>
@@ -265,58 +280,9 @@ export default function Home() {
         </section>
       </main>
 
-      {/* JSON-LD FAQ Schema for Answer Engine Optimization */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Who are the tutors at Recite Ayah?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Our tutors are certified Islamic scholars who hold Ijazah from reputable institutions like Al-Azhar University. We have both male and female tutors who are fluent in English and experienced in teaching students globally."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What are the fees for online Quran classes?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Our pricing is highly affordable, starting at just $50 per month for 2 days a week. We offer flexible plans up to 5 days a week. You can find detailed pricing on our Pricing page."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What is the class schedule?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We offer 24/7 flexible scheduling. You can choose class timings that perfectly fit your routine and local time zone (EST, GMT, etc.)."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Are the classes suitable for young kids?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Absolutely! We have specialized female tutors who use engaging, patient, and interactive methods designed specifically for children learning the Noorani Qaida and basic Quran reading."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "How does the free trial work?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Simply fill out our contact form to book a free 30-minute evaluation class. There is no credit card required and zero obligation to continue if you are not completely satisfied."
-                }
-              }
-            ]
-          })
-        }}
-      />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage",
+        mainEntity: faqs.map(faq => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })),
+      }} />
     </div>
   );
 }

@@ -39,14 +39,12 @@ npm ci
 Create `.env.local` in the repository root with the following values:
 
 ```dotenv
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
 GMAIL_USER=your-email@gmail.com
 GMAIL_APP_PASSWORD=your-google-app-password
 ```
 
 | Variable | Usage |
 | --- | --- |
-| `NEXT_PUBLIC_BASE_URL` | Absolute site origin used by metadata, the sitemap, and robots output. Use the final HTTPS origin in production, without a trailing slash. This value is public. |
 | `GMAIL_USER` | Gmail account used to send notifications and receive trial requests. Server-only. |
 | `GMAIL_APP_PASSWORD` | Google App Password used by Nodemailer. Server-only; do not use a regular account password. |
 
@@ -70,9 +68,10 @@ On Windows, if PowerShell blocks `npm.ps1` because of its execution policy, use 
 | `npm run build` | Create a production build |
 | `npm start` | Serve an existing production build |
 | `npm run lint` | Run ESLint |
+| `npm test` | Run form validation and mocked email tests |
 | `npx tsc --noEmit` | Check TypeScript without emitting JavaScript |
 
-There is currently no automated test script.
+Run `npm test` for focused validation, spam-limit, and mocked email-notification tests. Tests do not send email.
 
 ## Project layout
 
@@ -87,6 +86,11 @@ src/
   components/layout/         Shared navigation and footer
   components/ui/Button.tsx    Reusable button component
   data/courses.ts             Course content and slug lookup
+  data/pricing.ts             Shared USD pricing
+  data/timezones.ts           Common scheduling time zones
+  lib/site.ts                 Canonical domain
+  lib/metadata.ts             Page metadata builder
+  lib/lead-validation.ts      Server-side lead validation
   data/testimonials.ts        Testimonial content
   lib/utils.ts               Class-name utility
 public/images/               Public image assets
@@ -98,42 +102,44 @@ design-tokens.json           Design reference tokens
 ## Editing content
 
 - **Courses:** edit `src/data/courses.ts`. The catalog, course routes, form options, and sitemap consume this data. Preserve existing slugs where possible; redirect old URLs when changing them.
-- **Prices:** edit `src/app/pricing/page.tsx` and reconcile matching copy in the homepage FAQs, FAQ JSON-LD, and US page. Pricing is not yet centralized.
+- **Prices:** edit `src/data/pricing.ts`. The pricing page, homepage FAQs and FAQ JSON-LD, and US page use this shared data.
 - **Testimonials:** edit `src/data/testimonials.ts`; the US page filters entries whose role contains `USA`. Use verified, permissioned feedback.
 - **Branding and styling:** edit `src/app/globals.css`, the root layout, and shared layout components. `design-tokens.json` is a reference, not an automatically applied theme.
 - **Search and sharing:** review `src/app/layout.tsx`, individual page metadata, `sitemap.ts`, `robots.ts`, and the image metadata files under `src/app`.
-- **Contact details:** edit `src/app/contact/page.tsx` and applicable policy pages. The visible phone number is currently a placeholder.
+- **Contact details:** edit `src/components/forms/ContactForm.tsx` and applicable policy pages. The placeholder phone number has been removed; confirm the public mailbox is active before launch.
 
 ## How trial requests work
 
-1. The visitor provides their name, email, phone, country, course, and optional notes on `/contact`.
+1. The visitor provides their name, email, phone, country, course, time zone, and optional notes on `/contact`. Course-page links preselect the course.
 2. The client calls `submitLeadAction` in `src/actions/submitLead.ts`.
-3. The action checks that name, email, phone, and course are present, then sends an HTML notification to `GMAIL_USER` through Gmail.
+3. The action validates field types, required values, lengths, email/phone format, the course slug, and time zone. It checks a honeypot and process-local rate limits, then sends escaped HTML and plain-text notifications to `GMAIL_USER` through Gmail.
 4. The page displays success or an error. Staff arrange the session afterward.
 
-Requests are not stored in a database. There is no student confirmation email, automatic booking calendar, CRM connection, payment processing, or WhatsApp API integration. The notification email includes a WhatsApp contact link. The country field is required in the browser but is not enforced by the server action.
+Requests are not stored in a database. There is no student confirmation email, automatic booking calendar, CRM connection, payment processing, or WhatsApp API integration. The notification email includes a WhatsApp contact link. Country and time zone are required by both the form and server validation.
 
-Before a public launch, strengthen server-side validation, escape user input inserted into HTML emails, add spam/rate-limit controls, and test delivery to the configured inbox. These are outstanding improvements, not implemented features.
+Rate limits allow three attempts per email in 15 minutes and 30 total per minute, per server process. They reset on restart and are not shared across serverless instances. Add host-level rate limiting or a shared store for stronger production abuse protection. Verify real email delivery separately before launch.
 
 ## Deployment
 
 Deploy to a Next.js-compatible platform such as Vercel, or a Node.js host that supports Server Actions and outbound SMTP. A static-only export cannot run the current lead form.
 
-1. Configure the three environment variables on the host. Set `NEXT_PUBLIC_BASE_URL` to the final production origin before building.
-2. Run `npm run lint` and `npm run build`.
+1. Configure `GMAIL_USER` and `GMAIL_APP_PASSWORD` on the host. The canonical production origin is fixed at `https://reciteayah.com` in `src/lib/site.ts`; the old `NEXT_PUBLIC_BASE_URL` variable is no longer used.
+2. Run `npm run lint`, `npm test`, and `npm run build`.
 3. For a Node.js deployment, run `npm start` after the build.
 4. Verify key pages, course URLs, `/robots.txt`, and `/sitemap.xml` on the deployed origin.
 5. Submit an authorized test request and verify notification delivery before accepting public leads.
 
-Domain configuration currently needs reconciliation: the layout falls back to `reciteayah.vercel.app`, robots and sitemap fall back to `www.reciteayah.com`, and `openGraph.url` is hardcoded to the latter. Setting the environment variable alone does not change that hardcoded Open Graph URL.
+Add both `reciteayah.com` and `www.reciteayah.com` to your hosting project and configure the DNS records specified by the host. Provision HTTPS for both. `next.config.ts` permanently redirects requests for `www.reciteayah.com` to the apex domain, preserving paths and query strings. DNS and hosting configuration are separate from these code changes. Protect preview deployments from indexing using the hosting provider's deployment protection settings.
 
 ## Current limitations and SEO
 
 The original [project scope](docs/project_scope.md) includes proposed integrations that are not implemented. It should be read as a planning document.
 
-Current launch issues include inconsistent advertised prices ($50 in the homepage FAQ versus $35 for the entry plan), an unverified Stripe payment claim on the US page, missing metadata on several routes, no explicit canonical URLs, and no internal navigation link to the US landing page. Analytics integration is also absent from the source.
+Implemented: centralized domain and prices, metadata and canonicals on all public pages, Organization and course breadcrumb JSON-LD, responsive hero image optimization, internal links to the expanded US page, and safer trial requests. The unsupported Stripe claim and numerical student-count claims have been removed. Homepage testimonials now use the existing data rather than repeating one testimonial three times.
 
-See the [US SEO audit and action plan](docs/seo-audit-us.md) for evidence, suggested keyword-to-page mapping, and a prioritized rollout. That audit describes recommendations; it does not indicate that the changes have been implemented.
+Still needed from the owner: verify tutor credentials and testimonial permissions, confirm contact details, connect DNS/hosting, configure Search Console, and choose analytics accounts and measurement IDs. Analytics integration is not included.
+
+See the [US SEO audit and action plan](docs/seo-audit-us.md) for evidence, suggested keyword-to-page mapping, and a prioritized rollout. The implementation update at the top distinguishes completed code changes from remaining operational work.
 
 ## Contributor guidance
 

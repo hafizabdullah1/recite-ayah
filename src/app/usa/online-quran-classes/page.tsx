@@ -1,12 +1,13 @@
+import { startingPrice, plans } from "@/data/pricing";
+import { courses } from "@/data/courses";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2, Star, Clock, Globe } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
 
-export const metadata = {
-  title: "Online Quran Classes in USA | Recite Ayah",
-  description: "Join the best online Quran academy in the USA. Certified tutors, flexible EST/CST/PST scheduling, and tailored programs for kids and adults.",
-};
+
+export const metadata = pageMetadata("Online Quran Classes in USA | Free Trial", "One-to-one online Quran lessons for kids and adults in the USA. Explore USD plans, US-friendly scheduling, and a free 30-minute trial.", "/usa/online-quran-classes");
 
 export default function USALandingPage() {
   const usaTestimonials = testimonials.filter(t => t.role.includes("USA"));
@@ -19,7 +20,7 @@ export default function USALandingPage() {
         <section className="container mx-auto px-6 py-20 lg:px-12 lg:py-24 text-center">
           <div className="max-w-4xl mx-auto flex flex-col items-center">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8">
-              <span>🇺🇸</span> Trusted by 1000+ Muslim Families in the USA
+              <span>🇺🇸</span> One-to-one Quran learning for US families
             </div>
             
             <h1 className="font-serif text-5xl font-medium leading-[1.1] tracking-tight text-foreground md:text-6xl lg:text-7xl mb-8">
@@ -27,7 +28,7 @@ export default function USALandingPage() {
             </h1>
             
             <p className="text-xl leading-relaxed text-foreground/80 mb-10 max-w-2xl">
-              Learn Quran, Tajweed, and Islamic Studies from the comfort of your home. We offer flexible scheduling aligned with EST, CST, and PST time zones.
+              Learn Quran, Tajweed, and Islamic Studies from the comfort of your home. Share your preferred times in Eastern, Central, Mountain, or Pacific time when requesting a trial.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
@@ -45,22 +46,53 @@ export default function USALandingPage() {
               <div className="flex flex-col items-center text-center">
                 <Clock className="h-12 w-12 text-secondary mb-6" />
                 <h3 className="font-serif text-2xl font-medium mb-4">Flexible US Timing</h3>
-                <p className="text-foreground/70">Classes available 24/7 to perfectly fit your schedule, whether you are in New York (EST) or California (PST).</p>
+                <p className="text-foreground/70">Tell us whether after-school, evening, or weekend sessions suit you. Our team will confirm availability in your time zone.</p>
               </div>
               <div className="flex flex-col items-center text-center">
                 <Globe className="h-12 w-12 text-secondary mb-6" />
-                <h3 className="font-serif text-2xl font-medium mb-4">Native Arabic Speakers</h3>
-                <p className="text-foreground/70">Learn from certified Egyptian scholars who are fluent in English to ensure clear communication with your kids.</p>
+                <h3 className="font-serif text-2xl font-medium mb-4">Discuss Your Learning Goals</h3>
+                <p className="text-foreground/70">Tell us your reading level, preferred teaching language, and whether you would like a male or female tutor.</p>
               </div>
               <div className="flex flex-col items-center text-center">
                 <CheckCircle2 className="h-12 w-12 text-secondary mb-6" />
-                <h3 className="font-serif text-2xl font-medium mb-4">Secure USD Payments</h3>
-                <p className="text-foreground/70">Transparent pricing starting at just $35/month. Pay securely via Stripe using any major US credit card.</p>
+                <h3 className="font-serif text-2xl font-medium mb-4">Clear USD Pricing</h3>
+                <p className="text-foreground/70">Plans start at {startingPrice} USD per month. Compare class frequency and session length before requesting your free trial.</p>
               </div>
             </div>
           </div>
         </section>
 
+        <section className="container mx-auto px-6 py-16 lg:px-12">
+          <h2 className="font-serif text-3xl mb-6">Choose a course for your starting point</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {courses.map(course => <article key={course.slug} className="rounded-3xl bg-white p-8 border border-primary/10">
+              <h3 className="font-serif text-2xl mb-3"><Link href={`/courses/${course.slug}`} className="text-primary underline underline-offset-4">{course.title}</Link></h3>
+              <p className="text-foreground/80">{course.shortDescription}</p>
+            </article>)}
+          </div>
+        </section>
+        <section className="bg-white py-16">
+          <div className="container mx-auto px-6 lg:px-12">
+            <h2 className="font-serif text-3xl mb-6">Monthly plans in US dollars</h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              {plans.map(plan => <div key={plan.name} className="rounded-3xl bg-background p-8">
+                <h3 className="font-serif text-2xl mb-3">{plan.name}</h3>
+                <p className="text-xl font-medium">{plan.price} USD / month</p>
+                <p className="mt-3 text-foreground/80">{plan.features[0]} &middot; {plan.features[1]}</p>
+              </div>)}
+            </div>
+            <Link href="/pricing" className="inline-block mt-6 text-primary underline">Compare all plan details</Link>
+          </div>
+        </section>
+        <section className="container mx-auto px-6 py-16 lg:px-12 max-w-4xl">
+          <h2 className="font-serif text-3xl mb-6">Planning your first online lesson</h2>
+          <div className="space-y-6 text-foreground/80">
+            <div><h3 className="font-medium text-xl mb-2">How do US time zones work?</h3><p>Select your time zone on the trial form and include your preferred days and times. We record named time zones so daylight-saving changes can be considered when arranging your session. Your request is not a confirmed appointment; our team will contact you to agree on a time.</p></div>
+            <div><h3 className="font-medium text-xl mb-2">What should a parent share?</h3><p>Include your child&apos;s age, reading experience, and learning goals in the notes. You can also request a female tutor and discuss how you would like to support practice between lessons.</p></div>
+            <div><h3 className="font-medium text-xl mb-2">What is included in the trial?</h3><p>The free 30-minute evaluation is a chance to discuss your level, goals, and course choice. No credit card is required to request a trial.</p></div>
+          </div>
+          <Button asChild size="lg" className="mt-8 rounded-full"><Link href="/contact">Request a free trial</Link></Button>
+        </section>
         {/* USA Testimonials */}
         {usaTestimonials.length > 0 && (
           <section className="py-24 bg-background">

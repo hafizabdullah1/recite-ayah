@@ -1,8 +1,14 @@
 # Recite Ayah: US SEO audit and action plan
 
-Reviewed September 25, 2026. This is a source-code audit, supported by current Google documentation. Production hosting, HTTP responses, Search Console, backlinks, keyword volumes, rankings, and real-user performance have not been verified. Proposed keywords below are hypotheses to validate, not measured demand. Application changes have not been implemented as part of this documentation task.
+Reviewed September 25, 2026. This is a source-code audit, supported by current Google documentation. Production hosting, HTTP responses, Search Console, backlinks, keyword volumes, rankings, and real-user performance have not been verified. Proposed keywords below are hypotheses to validate, not measured demand. The original findings below describe the September 25 baseline; see the implementation update for subsequent changes.
 
 The site has a useful foundation: readable routes, server-rendered page components, generated course paths, a sitemap, robots output, descriptive headings, social images, USD pricing, and a dedicated US landing page. The first priorities are consistent business information, reliable indexing signals, and stronger evidence that the service meets US families' needs.
+
+## Implementation update: September 26, 2026
+
+Completed in code: canonical origin set to https://reciteayah.com; permanent www redirect; unique page metadata, canonical and sharing URLs; consistent sitemap/robots output without fabricated modification dates; shared USD pricing; responsive hero image; US internal links, course comparison and scheduling information; course breadcrumbs and preparation guidance; Organization and breadcrumb JSON-LD; course preselection and time-zone capture; server validation, email HTML escaping, honeypot and process-local rate limits. Removed the placeholder contact phone, Stripe claim, and numerical student-count claims. Homepage testimonials now use the existing testimonial data instead of duplicating one review.
+
+Still requires owner/account work: DNS and HTTPS on the hosting project, confirmation of the public mailbox and real phone number, real mail-delivery testing, verification of teacher credentials and testimonial permissions, Search Console verification, analytics configuration, original teacher-reviewed resources, and community outreach. Rate limits are local to each server process; use a shared store or hosting controls for protection across instances. Live rankings, field performance, and mobile visual layout have not been measured. The code changes do not establish the truth of existing business claims.
 
 ## 1. Fix these issues first
 

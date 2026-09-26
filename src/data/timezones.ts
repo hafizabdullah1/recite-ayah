@@ -1,0 +1,16 @@
+export const timezones = [
+  ["America/New_York", "Eastern time (New York)"],
+  ["America/Chicago", "Central time (Chicago)"],
+  ["America/Denver", "Mountain time (Denver)"],
+  ["America/Phoenix", "Arizona time (Phoenix)"],
+  ["America/Los_Angeles", "Pacific time (Los Angeles)"],
+  ["America/Anchorage", "Alaska time (Anchorage)"],
+  ["Pacific/Honolulu", "Hawaii time (Honolulu)"],
+  ["America/Puerto_Rico", "Puerto Rico time"],
+  ["Europe/London", "United Kingdom (London)"],
+  ["America/Toronto", "Canada (Toronto)"],
+  ["America/Vancouver", "Canada (Vancouver)"],
+  ["Asia/Dubai", "United Arab Emirates (Dubai)"],
+  ["Asia/Karachi", "Pakistan (Karachi)"],
+  ["Australia/Sydney", "Australia (Sydney)"],
+] as const;

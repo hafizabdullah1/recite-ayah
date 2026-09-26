@@ -1,11 +1,10 @@
+import { pageMetadata } from "@/lib/metadata";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { BookOpen, Globe, Heart, ShieldCheck } from "lucide-react";
 
-export const metadata = {
-  title: "About Us | Recite Ayah",
-  description: "Learn about our mission to spread the light of the Quran globally with expert, certified tutors.",
-};
+
+export const metadata = pageMetadata("About Our Online Quran Academy", "Learn about Recite Ayah and our approach to one-to-one Quran lessons for children and adults.", "/about");
 
 export default function AboutPage() {
   return (
@@ -41,12 +40,12 @@ export default function AboutPage() {
             <div className="p-8 rounded-3xl bg-white shadow-sm border border-primary/5">
               <ShieldCheck className="h-10 w-10 mx-auto text-primary mb-4" />
               <h3 className="font-serif text-xl font-medium mb-3">Certified Tutors</h3>
-              <p className="text-foreground/70">Our teachers are meticulously vetted and hold Ijazah from renowned Islamic institutions.</p>
+              <p className="text-foreground/70">Ask about a tutor&apos;s qualifications, teaching experience, and approach during your trial.</p>
             </div>
             <div className="p-8 rounded-3xl bg-white shadow-sm border border-primary/5">
               <Globe className="h-10 w-10 mx-auto text-primary mb-4" />
               <h3 className="font-serif text-xl font-medium mb-3">Global Reach</h3>
-              <p className="text-foreground/70">We serve thousands of students across the USA, UK, Canada, Australia, and beyond.</p>
+              <p className="text-foreground/70">Online lessons connect students with tutors across time zones, including families in the USA.</p>
             </div>
             <div className="p-8 rounded-3xl bg-white shadow-sm border border-primary/5">
               <Heart className="h-10 w-10 mx-auto text-primary mb-4" />

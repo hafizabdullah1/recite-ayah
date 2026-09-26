@@ -1,94 +1,57 @@
 "use server";
 
 import nodemailer from "nodemailer";
+import { createHash } from "node:crypto";
+import { courses, getCourseBySlug } from "@/data/courses";
+import { escapeHtml, validateLead } from "@/lib/lead-validation";
+import { createLeadRateLimiter } from "@/lib/lead-rate-limit";
+
+const allowEmail = createLeadRateLimiter();
+const allowVolume = createLeadRateLimiter(30, 60_000);
 
 export async function submitLeadAction(formData: FormData) {
+  if (formData.get("website")) return { success: false, error: "Unable to submit this request. Please try again." };
+  const result = validateLead(formData, courses.map(course => course.slug));
+  if (result.error || !result.lead) return { success: false, error: result.error };
+  const lead = result.lead;
+  const gmailUser = process.env.GMAIL_USER;
+  const gmailPass = process.env.GMAIL_APP_PASSWORD;
+  if (!gmailUser || !gmailPass) {
+    return { success: false, error: "Trial requests are temporarily unavailable. Please try again later." };
+  }
+  const key = createHash("sha256").update(lead.email).digest("hex");
+  if (!allowEmail(key) || !allowVolume("all")) {
+    return { success: false, error: "Too many requests. Please wait a few minutes before trying again." };
+  }
+
   try {
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const phone = formData.get("phone") as string;
-    const country = formData.get("country") as string;
-    const course = formData.get("course") as string;
-    const message = formData.get("message") as string;
-
-    // Validate required fields
-    if (!name || !email || !phone || !course) {
-      return { success: false, error: "Please fill out all required fields." };
-    }
-
-    const gmailUser = process.env.GMAIL_USER;
-    const gmailPass = process.env.GMAIL_APP_PASSWORD;
-
-    if (!gmailUser || !gmailPass) {
-      console.error("Gmail credentials are not configured in environment variables.");
-      return { success: false, error: "Server configuration error. Please try again later." };
-    }
-
-    // Configure Nodemailer transporter for Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      auth: {
-        user: gmailUser,
-        pass: gmailPass,
-      },
+      auth: { user: gmailUser, pass: gmailPass },
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 20_000,
     });
-
-    // Format the email content
-    const mailOptions = {
-      from: `"Recite Ayah System" <${gmailUser}>`, // Sender address
-      to: gmailUser, // Send to the admin's own email
-      subject: `🎉 New Free Trial Request from ${name}`,
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
-          <div style="background-color: #1B3625; padding: 20px; text-align: center;">
-            <h2 style="color: #ffffff; margin: 0;">New Lead Received!</h2>
-          </div>
-          <div style="padding: 30px; background-color: #ffffff;">
-            <p style="font-size: 16px; color: #374151;">A new student has requested a free trial. Here are their details:</p>
-            
-            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-              <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #1f2937; width: 30%;">Name</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; color: #4b5563;">${name}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #1f2937;">Email</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; color: #4b5563;"><a href="mailto:${email}">${email}</a></td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #1f2937;">Phone / WhatsApp</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; color: #4b5563;">${phone}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #1f2937;">Country</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; color: #4b5563;">${country || "Not provided"}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #1f2937;">Course Interest</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; color: #4b5563;">${course}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #1f2937;">Notes</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; color: #4b5563; white-space: pre-wrap;">${message || "No additional notes."}</td>
-              </tr>
-            </table>
-            
-            <div style="margin-top: 30px; text-align: center;">
-              <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" style="display: inline-block; background-color: #25D366; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 4px; font-weight: bold;">Message on WhatsApp</a>
-            </div>
-          </div>
-          <div style="background-color: #f9fafb; padding: 15px; text-align: center; font-size: 12px; color: #6b7280;">
-            This email was automatically generated by your Recite Ayah website.
-          </div>
-        </div>
-      `,
-    };
-
-    await transporter.sendMail(mailOptions);
-
+    const rows = [
+      ["Name", lead.name], ["Email", lead.email], ["Phone / WhatsApp", lead.phone],
+      ["Country", lead.country], ["Time zone", lead.timezone],
+      ["Course", getCourseBySlug(lead.course)!.title], ["Notes", lead.message || "No additional notes."],
+    ];
+    const whatsappUrl = "https://wa.me/" + lead.phone.replace(/\D/g, "");
+    await transporter.sendMail({
+      from: { name: "Recite Ayah", address: gmailUser },
+      to: gmailUser,
+      replyTo: { name: lead.name, address: lead.email },
+      subject: "New free trial request",
+      text: rows.map(([label, value]) => label + ": " + value).join("\n") + "\nWhatsApp: " + whatsappUrl,
+      html: '<h2>New free trial request</h2><table>' + rows.map(([label, value]) =>
+        '<tr><th style="text-align:left;padding:8px">' + escapeHtml(label) + '</th><td style="padding:8px;white-space:pre-wrap">' + escapeHtml(value) + '</td></tr>'
+      ).join("") + '</table><p><a href="' + whatsappUrl + '">Contact on WhatsApp</a></p>',
+    });
     return { success: true };
-  } catch (error) {
-    console.error("Error sending email:", error);
-    return { success: false, error: "Failed to send email. Please try again." };
+  } catch {
+    // Do not log the form payload or SMTP credentials.
+    console.error("Trial notification delivery failed.");
+    return { success: false, error: "We could not send your request. Please try again shortly." };
   }
 }

@@ -8,11 +8,15 @@ export type Course = {
   level: string;
   icon: string;
   benefits: string[];
+  preparation: string;
+  trialFocus: string;
 };
 
 export const courses: Course[] = [
   {
     id: "1",
+    preparation: "Start here if you are new to Arabic letters or need to rebuild your reading foundations. Tell your tutor which letters or sounds you already recognize.",
+    trialFocus: "Use the trial to discuss your reading experience and work through a few letters or vowel marks with your tutor.",
     slug: "quran-reading-basics",
     title: "Quran Reading Basics (Noorani Qaida)",
     shortDescription: "Master the fundamentals of Arabic pronunciation and reading with Noorani Qaida.",
@@ -29,6 +33,8 @@ export const courses: Course[] = [
   },
   {
     id: "2",
+    preparation: "This intermediate course is for students who can already read Arabic text. If reading is still difficult, discuss starting with Noorani Qaida during your trial.",
+    trialFocus: "Bring a short passage you are comfortable reading so you can discuss pronunciation and the Tajweed rules you want to practice.",
     slug: "quran-with-tajweed",
     title: "Quran with Tajweed",
     shortDescription: "Learn to recite the Holy Quran beautifully with the correct rules of Tajweed.",
@@ -45,6 +51,8 @@ export const courses: Course[] = [
   },
   {
     id: "3",
+    preparation: "Tell your tutor what you have already memorized and how much time you can set aside for daily revision. Your reading fluency and review routine help determine a suitable starting point.",
+    trialFocus: "Discuss a manageable memorization goal and how to balance new learning with revision of passages you already know.",
     slug: "quran-memorization",
     title: "Quran Memorization (Hifz)",
     shortDescription: "Memorize the Holy Quran with a structured and proven retention methodology.",
@@ -61,6 +69,8 @@ export const courses: Course[] = [
   },
   {
     id: "4",
+    preparation: "Parents can share their child's age, previous Islamic learning, and topics they would like to focus on. No prior course completion is required to discuss a starting point.",
+    trialFocus: "Use the trial to discuss an age-appropriate starting topic, such as daily Duas, Salah, or Islamic manners, and how a parent can support practice.",
     slug: "islamic-studies-for-kids",
     title: "Islamic Studies for Kids",
     shortDescription: "A comprehensive Islamic curriculum covering Duas, Hadith, Seerah, and Fiqh for children.",

@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Privacy Policy | Recite Ayah",
-  description: "Privacy policy for Recite Ayah.",
-};
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata("Privacy Policy", "How Recite Ayah handles information provided through our online Quran class website.", "/privacy");
 
 export default function PrivacyPage() {
   return (

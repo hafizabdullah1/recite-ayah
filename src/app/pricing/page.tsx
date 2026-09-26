@@ -1,58 +1,13 @@
+import { plans } from "@/data/pricing";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2 } from "lucide-react";
 
-export const metadata = {
-  title: "Pricing & Plans | Recite Ayah",
-  description: "Affordable and flexible online Quran classes. Choose a plan that fits your schedule.",
-};
 
-const plans = [
-  {
-    name: "2 Days / Week",
-    price: "$35",
-    period: "/ month",
-    description: "Perfect for beginners or young children with busy school schedules.",
-    features: [
-      "8 classes per month",
-      "30 mins per session",
-      "1-on-1 private classes",
-      "Monthly progress report",
-      "Male/Female tutors available"
-    ],
-    popular: false
-  },
-  {
-    name: "3 Days / Week",
-    price: "$50",
-    period: "/ month",
-    description: "Our most balanced plan for steady progress in Reading or Tajweed.",
-    features: [
-      "12 classes per month",
-      "30 mins per session",
-      "1-on-1 private classes",
-      "Monthly progress report",
-      "Male/Female tutors available",
-      "Make-up classes allowed"
-    ],
-    popular: true
-  },
-  {
-    name: "5 Days / Week",
-    price: "$75",
-    period: "/ month",
-    description: "Intensive plan recommended for Hifz (Memorization) students.",
-    features: [
-      "20 classes per month",
-      "30 mins per session",
-      "1-on-1 private classes",
-      "Weekly progress report",
-      "Male/Female tutors available",
-      "Make-up classes allowed"
-    ],
-    popular: false
-  }
-];
+
+
+export const metadata = pageMetadata("Online Quran Class Fees & USD Plans", "Compare monthly USD plans for one-to-one online Quran classes. View session lengths, weekly schedules, and request a free trial.", "/pricing");
 
 export default function PricingPage() {
   return (
@@ -65,7 +20,7 @@ export default function PricingPage() {
               Simple & Transparent Pricing
             </h1>
             <p className="text-xl text-foreground/80 leading-relaxed">
-              No hidden fees, no contracts. Start with a 100% free trial class, and then pick a plan that fits your family&apos;s schedule.
+              All prices are in US dollars (USD). Start with a 100% free trial class, and then pick a plan that fits your family&apos;s schedule.
             </p>
           </div>
 

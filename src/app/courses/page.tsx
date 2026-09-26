@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { courses } from "@/data/courses";
 import { BookOpen, Star, Users, Award } from "lucide-react";
@@ -10,6 +11,8 @@ const iconMap = {
   "award": Award,
   "users": Users,
 };
+
+export const metadata = pageMetadata("Online Quran Courses: Qaida, Tajweed & Hifz", "Explore Noorani Qaida, Quran with Tajweed, Hifz, and Islamic studies for kids. Compare learning goals and choose a course for your free trial.", "/courses");
 
 export default function CoursesPage() {
   return (
