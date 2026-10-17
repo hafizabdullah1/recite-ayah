@@ -2,16 +2,6 @@
 
 Recite Ayah is a marketing and trial-request website for an online Quran academy. The repository is named `quran-expert`. Visitors can explore courses, compare monthly plans, and request a free 30-minute evaluation class. A dedicated US landing page supports the academy's US audience.
 
-## Stack
-
-- Next.js 16.3.6 with the App Router
-- React 19.2.8 and TypeScript 5
-- Tailwind CSS 4, Lucide icons, and a reusable Radix Slot-based button
-- Nodemailer with Gmail SMTP for administrator lead notifications
-- Aoboshi One and Outfit fonts through `next/font/google`
-
-Content is maintained in source files. No database or CMS is required.
-
 ## Features and routes
 
 | Route | Purpose |
