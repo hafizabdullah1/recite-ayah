@@ -134,3 +134,4 @@ See the [US SEO audit and action plan](docs/seo-audit-us.md) for evidence, sugge
 ## Contributor guidance
 
 Read `AGENTS.md` before changing application code. It requires checking the relevant version-specific documentation under `node_modules/next/dist/docs/` rather than relying on older Next.js conventions.
+
